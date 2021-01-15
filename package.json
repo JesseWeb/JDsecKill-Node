@@ -1,0 +1,36 @@
+{
+  "name": "jdseckill-node",
+  "version": "0.0.1",
+  "description": "this project only for test",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "test",
+    "dev": "ts-node src/app.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JesseWeb/JDsecKill-Node.git"
+  },
+  "keywords": [
+    "JD",
+    "seckill",
+    "nodejs",
+    "typescript"
+  ],
+  "author": "LegendaryJesse",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/JesseWeb/JDsecKill-Node/issues"
+  },
+  "homepage": "https://github.com/JesseWeb/JDsecKill-Node#readme",
+  "dependencies": {
+    "log4js": "^6.3.0",
+    "moment": "^2.29.1",
+    "puppeteer": "^5.5.0"
+  },
+  "devDependencies": {
+    "@types/puppeteer": "^5.4.2",
+    "ts-node": "^9.1.1",
+    "typescript": "^4.1.3"
+  }
+}
