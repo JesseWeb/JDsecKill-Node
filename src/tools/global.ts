@@ -16,3 +16,7 @@ interface I_Confit {
    DiffTime: number
    PayPwd: string
 }
+
+export class Global {
+   static jsk:I_Confit
+}
