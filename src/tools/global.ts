@@ -1,5 +1,6 @@
+import puppeteer, { Cookie } from 'puppeteer'
 interface I_Confit {
-   page: any
+   page: puppeteer.Page
    isLogin: boolean
    isClose: boolean
    userAgent: string
@@ -14,9 +15,10 @@ interface I_Confit {
    IsOk: boolean
    StartTime: Date
    DiffTime: number
-   PayPwd: string
+   PayPwd: string,
+   cookies: Cookie[]
 }
 
 export class Global {
-   static jsk:I_Confit
+   static jsk: I_Confit
 }

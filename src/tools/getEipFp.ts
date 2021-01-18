@@ -16,22 +16,21 @@ export const getEipFq = async (page: puppeteer.Page) => {
       button: 'left'
    })
    logger.debug("正在前往购物车....")
-   await page.waitForSelector(`#GotoShoppingCart`,{
-    timeout:10000
-   })
+   await page.waitForTimeout(3000)
    await page.click('#GotoShoppingCart', {
       button: 'left'
    })
-   let url = page.url()
    logger.debug(`正在提交订单`)
+   await page.waitForNavigation()
+   await page.waitForTimeout(3000)
+   let url = page.url()
    if (url.search(`cart.jd.com/cart_index`) > -1) {
-      await page.waitForSelector(`.common-submit-btn`)
-      await page.click('.common-submit-btn', {
+      // await page.waitForSelector(`a.common-submit-btn`)
+      await page.click('a.common-submit-btn', {
          button: 'left'
       })
-
    } else {
-      await page.waitForSelector(`.submit-btn`)
+      // await page.waitForSelector(`.submit-btn`)
       await page.click('.submit-btn', {
          button: 'left'
       })
@@ -45,7 +44,7 @@ export const getEipFq = async (page: puppeteer.Page) => {
    await sleep(3000)
    let eidFp: any = await page.evaluate(`window._JdTdudfp`)
    if (!eidFp) throw new Error('获取eid fp失败')
-   if(typeof eidFp != "object"){
+   if (typeof eidFp != "object") {
       try {
          eidFp = JSON.parse(eidFp)
          // global.jsk.eid = eidFp.eid
