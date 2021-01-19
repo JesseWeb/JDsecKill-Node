@@ -3,7 +3,7 @@ import { getRandomNum } from "./getRandomNum"
 import { Global } from "./global"
 import { getReq } from "./http"
 
-export const fetchSKLing = async () => {
+export const fetchSKLink = async () => {
    /*jsk.SecKillUrl = "https://marathon.jd.com/captcha.html?skuId="+jsk.SkuId+"&sn=c3f4ececd8461f0e4d7267e96a91e0e0&from=pc"*/
    logger.debug(`开始获取抢购链接....`)
    Global.jsk.SecKillUrl
@@ -21,6 +21,6 @@ export const fetchSKLing = async () => {
       ${Global.jsk.SecKillUrl}`)
       return
    } else {
-      await fetchSKLing()
+      await fetchSKLink()
    }
 }

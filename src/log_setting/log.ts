@@ -10,7 +10,10 @@ log4js.configure({
       },
    },
 
-   categories: { default: { appenders: ["file",'console'], level: "DEBUG" } }
+   categories: { default: { appenders: ["file", 'console'], level: "DEBUG" } }
 });
 
-export const logger = log4js.getLogger("default");
+interface I_Logger {
+   debug(str?: any): void
+}
+export const logger = log4js.getLogger("default") as I_Logger;

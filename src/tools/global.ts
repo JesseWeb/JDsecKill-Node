@@ -8,7 +8,7 @@ interface I_Confit {
    SkuId: string
    SecKillUrl: string
    SecKillNum: number
-   SecKillInfo: object | null
+   SecKillInfo: any
    eid: string
    fp: string
    Works: number

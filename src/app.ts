@@ -7,8 +7,9 @@ import { config } from './config'
 import moment from 'moment'
 import { SyncJdTime } from './tools/SyncJdTime';
 import { waitForStart } from './opt/waitForStart';
-import { fetchSKLing } from './tools/fetchSKLink';
+import { fetchSKLink } from './tools/fetchSKLink';
 import { getReq } from './tools/http';
+import { ReqSubmitSKOrder } from './tools/reqSubmitSKOrder';
 (async () => {
    try {
       let page = await madePage()
@@ -35,14 +36,36 @@ import { getReq } from './tools/http';
       await login(page)
       await getEipFq(page)
       await waitForStart()
-      await fetchSKLing()
       logger.debug("正在访问抢购连接......")
-      let req = await getReq(Global.jsk.SecKillUrl, null, "https://item.jd.com/" + Global.jsk.SkuId + ".html", true)
-      //这里访问会响应302 禁止重定向后就会是空数据 所以这里空数据是正常的
-      if (req.data == null) {
-
+      await page.goto("https://item.jd.com/" + Global.jsk.SkuId + ".html")
+      // await page.waitForNavigation()
+      while (true) {
+         await fetchSKLink()
+         let req = await getReq(Global.jsk.SecKillUrl, null, "https://item.jd.com/" + Global.jsk.SkuId + ".html", true)
+         //这里访问会响应302 禁止重定向后就会是空数据 所以这里空数据是正常的
+         // 'jQuery4607002({"type":"3","state":"12","st":1611021600,"en":1611023400,"url":"//divide.jd.com/user_routing?skuId=100012043978&sn=170d22ec7aae7552a78bf743c9de22f7&from=pc"})\n'
+         // if (req.status == 302) {
+         //    break
+         // }
+         if(req.data){
+            break
+         }
+         // if (req.data) {
+         //    let r = req.data.replace(/jQuery[0-9]+\(/, "")
+         //    r = r.replace(/\)\\n/, '')
+         //    let j = JSON.parse(r)
+         //    if (j.url) break
+         // }
       }
-      logger.debug(Global.jsk.SecKillUrl)
+      while (true) {
+         try {
+            await ReqSubmitSKOrder()
+            break
+         } catch (error) {
+
+         }
+      }
+      // logger.debug(Global.jsk.SecKillUrl)
    } catch (error) {
       logger.debug(error)
       process.exit(-1)
